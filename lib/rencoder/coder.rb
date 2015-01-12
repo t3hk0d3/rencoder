@@ -8,6 +8,5 @@ module Rencoder
 
     include Rencoder::Encoder
     include Rencoder::Decoder
-
   end
 end
