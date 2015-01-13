@@ -6,6 +6,12 @@ describe Rencoder::Decoder do
   subject { Rencoder::Coder.new }
 
   describe '#decode' do
+    it 'raises EOFError on EOF' do
+      expect {
+        subject.decode(StringIO.new)
+      }.to raise_error(EOFError)
+    end
+
     describe 'string' do
       it 'decode string' do
         expect(subject.decode(serialized_string)).to eq('Test')

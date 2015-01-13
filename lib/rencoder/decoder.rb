@@ -10,7 +10,7 @@ module Rencoder
     def decode(buffer)
       buffer = StringIO.new(buffer) unless buffer.respond_to?(:read) # IO object
 
-      type = buffer.getbyte
+      type = buffer.readbyte
 
       case type
       when STR_HEADER, STR_FIXED
