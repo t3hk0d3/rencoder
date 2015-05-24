@@ -2,7 +2,7 @@
 
 Rencoder is pure Ruby implementation of Rencode serialization format encoding/decoding.
 
-Rencoder is *FULLY* compliant with Python implementation, and uses all optimizations (by-type-offset integers, strings, arrays, hashes) both in encoding and decoding.
+Rencoder is *FULLY* compliant with Python implementation, and uses all optimizations (by-type-offset integers, strings, arrays, hashes) both for encoding and decoding.
 
 Rencoder has no runtime dependencies. Everything done in a pure Ruby.
 
