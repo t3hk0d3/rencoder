@@ -5,7 +5,7 @@ module Rencoder
     def encode(object)
       case object
       when String, Symbol then encode_string(object)
-      when Fixnum then encode_integer(object)
+      when Integer then encode_integer(object)
       when Float then encode_float(object)
       when TrueClass, FalseClass then encode_boolean(object)
       when NilClass then encode_nil(object)
@@ -34,7 +34,7 @@ module Rencoder
         bytes = object.to_s.bytes
 
         if bytes.size >= MAX_INT_LENGTH
-          raise EncodingError, "Unable to serialize Fixnum #{object} due to overflow"
+          raise EncodingError, "Unable to serialize Integer #{object} due to overflow"
         end
 
         [CHR_INT, *bytes, CHR_TERM].pack('C*')
