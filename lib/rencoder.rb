@@ -40,12 +40,12 @@ module Rencoder
   # Strings with length embedded in typecode.
   STR_FIXED_START = 128
   STR_FIXED_COUNT = 64
-  STR_FIXED = (STR_FIXED_START..STR_FIXED_START + STR_FIXED_COUNT)
+  STR_FIXED = (STR_FIXED_START...STR_FIXED_START + STR_FIXED_COUNT)
 
   # Lists with length embedded in typecode.
   LIST_FIXED_START = STR_FIXED_START+STR_FIXED_COUNT
   LIST_FIXED_COUNT = 64
-  LIST_FIXED = (LIST_FIXED_START..LIST_FIXED_START + LIST_FIXED_COUNT)
+  LIST_FIXED = (LIST_FIXED_START...LIST_FIXED_START + LIST_FIXED_COUNT)
 
   require_relative 'rencoder/encoder'
   require_relative 'rencoder/decoder'

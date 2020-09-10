@@ -41,6 +41,12 @@ shared_context 'serialization_values' do
   # :test (symbol)
   let(:serialized_symbol) { Base64.decode64('hHRlc3Q=') }
 
+  # ''
+  let(:serialized_empty_string) { Base64.decode64("gA==\n") }
+
+  # maximum embedded-length string type ('a' * 63)
+  let(:serialized_63byte_string) { "\xBF" + 'a' * 63 }
+
   # 'a' * 100
   let(:serialized_long_string) { '100:' + 'a' * 100 }
 
@@ -61,8 +67,16 @@ shared_context 'serialization_values' do
   let(:serialized_nil) { 69.chr }
 
   # Array
+  # []
+  let(:serialized_empty_array) { "\xC0" }
+
   # ["Test", 100, 100.0001, nil]
   let(:serialized_array) { Base64.decode64('xIRUZXN0PmQsQFkAAaNuLrJF') }
+
+  # maximum embedded-length array type (63.times.to_a)
+  let(:serialized_63_element_array) do
+    Base64.decode64("/z4APgE+Aj4DPgQ+BT4GPgc+CD4JPgo+Cz4MPg0+Dj4PPhA+ET4SPhM+FD4V\nPhY+Fz4YPhk+Gj4bPhw+HT4ePh8+ID4hPiI+Iz4kPiU+Jj4nPig+KT4qPis+\nLD4tPi4+Lz4wPjE+Mj4zPjQ+NT42Pjc+OD45Pjo+Oz48Pj0+Pg==\n")
+  end
 
   # big array (100.times.to_a)
   let(:serialized_big_array) do
