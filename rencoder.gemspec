@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Rencoder is implementation of Rencoder encoding/decoding.'
   spec.homepage      = 'https://github.com/t3hk0d3/rencoder'
   spec.license       = 'MIT'
-  spec.required_ruby_version = '>= 2.1' # rubocop:disable Gemspec/RequiredRubyVersion
+  spec.required_ruby_version = '>= 2.2' # rubocop:disable Gemspec/RequiredRubyVersion
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
