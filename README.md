@@ -1,10 +1,10 @@
 # Rencoder
 
-Rencoder is pure Ruby implementation of Rencode serialization format encoding/decoding.
+Rencoder is a pure Ruby implementation of Rencode serialization format encoding/decoding.
 
-Rencoder is *FULLY* compliant with Python implementation, and uses all optimizations (by-type-offset integers, strings, arrays, hashes) both for encoding and decoding.
+Rencoder is a *FULLY* compliant with Python implementation, and uses all optimizations (by-type-offset integers, strings, arrays, hashes) both for encoding and decoding.
 
-Rencoder has no runtime dependencies. Everything done in a pure Ruby.
+Rencoder have no runtime dependencies. Everything done in a pure Ruby.
 
 More about Rencode format:
 - <https://github.com/aresch/rencode>
@@ -30,15 +30,15 @@ Rencoder.dump(["hello", :world, 123]) # Arrays
 ```
 
 **Float precion notice**
-Rencoder uses 64-bit precision by default.
-It's highly recommended to stay that way.
-If there is strong reason to use 32-bit precision, then please specify
-``float32: true`` option for ``Rencoder.dump``:
+Rencoder uses a 64-bit precision by default.
+It's recommended to stay this way.
+If there is a strong reason to use 32-bit precision, then please specify
+``float32: true`` option in a ``Rencoder.dump`` call:
 
 ```ruby
 Rencoder.dump(1.000001, float32: true)
 ```
-***Using 32-bit precision is highly NOT recommended***
+***Using 32-bit precision is NOT recommended***
 
 ### Deserialization
 
@@ -52,7 +52,7 @@ Rencoder.load(string_data)
 # => "Hello World"
 ```
 
-**Rencoder can read data from any IO object directly without using any buffers**
+**Rencoder can read data from any IO object directly, without using any buffers**
 ```ruby
 socket = TCPSocket.new('example.com', 8814)
 Rendcoder.load(socket)
@@ -61,7 +61,7 @@ Rendcoder.load(socket)
 
 ### ActiveRecord
 
-Rencoder is compliant with ActiveSupport ``serialize`` interface:
+Rencoder is compliant with the ActiveSupport's ``serialize`` interface:
 
 ```ruby
 class MyModel < ActiveRecord::Base
