@@ -29,5 +29,5 @@ jobs:
       run: bundle install
     - name: Run RuboCop
       run: bundle exec rubocop
-    - name: Run Rspecs
+    - name: Run RSpec
       run: bundle exec rspec spec
