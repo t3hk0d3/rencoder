@@ -17,6 +17,14 @@ describe Rencoder::Decoder do
         expect(subject.decode(serialized_string)).to eq('Test')
       end
 
+      it 'decode empty string' do
+        expect(subject.decode(serialized_empty_string)).to eq('')
+      end
+
+      it 'decode maximum embedded-length type string' do
+        expect(subject.decode(serialized_63byte_string)).to eq('a' * 63)
+      end
+
       it 'decode long string' do
         expect(subject.decode(serialized_long_string)).to eq('a' * 100)
       end
@@ -79,8 +87,16 @@ describe Rencoder::Decoder do
     end
 
     describe 'array' do
+      it 'decode empty array' do
+        expect(subject.decode(serialized_empty_array)).to eq([])
+      end
+
       it 'decode small array' do
         expect(subject.decode(serialized_array)).to eq(['Test', 100, 100.0001, nil])
+      end
+
+      it 'decode maximum embedded length type array' do
+        expect(subject.decode(serialized_63_element_array)).to eq(63.times.to_a)
       end
 
       it 'decode big array' do
