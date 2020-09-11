@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'rencoder/version'
 
+# Rencode format encoder/decoder
 module Rencoder
   # Rencoder Constants
   MAX_INT_LENGTH = 64
@@ -22,30 +25,30 @@ module Rencoder
   # Dictionaries with length embedded in typecode.
   DICT_FIXED_START = 102
   DICT_FIXED_COUNT = 25
-  DICT_FIXED = (DICT_FIXED_START...DICT_FIXED_START + DICT_FIXED_COUNT)
+  DICT_FIXED = (DICT_FIXED_START...DICT_FIXED_START + DICT_FIXED_COUNT).freeze
 
   # Positive integers with value embedded in typecode.
   INT_POS_FIXED_START = 0
   INT_POS_FIXED_COUNT = 44
-  INT_POS_FIXED = (INT_POS_FIXED_START...INT_POS_FIXED_START + INT_POS_FIXED_COUNT)
+  INT_POS_FIXED = (INT_POS_FIXED_START...INT_POS_FIXED_START + INT_POS_FIXED_COUNT).freeze
 
   # Negative integers with value embedded in typecode.
   INT_NEG_FIXED_START = 70
   INT_NEG_FIXED_COUNT = 32
-  INT_NEG_FIXED = (INT_NEG_FIXED_START...INT_NEG_FIXED_START + INT_NEG_FIXED_COUNT)
+  INT_NEG_FIXED = (INT_NEG_FIXED_START...INT_NEG_FIXED_START + INT_NEG_FIXED_COUNT).freeze
 
   # String length header
-  STR_HEADER = ('0'.ord..'9'.ord)
+  STR_HEADER = ('0'.ord..'9'.ord).freeze
 
   # Strings with length embedded in typecode.
   STR_FIXED_START = 128
   STR_FIXED_COUNT = 64
-  STR_FIXED = (STR_FIXED_START...STR_FIXED_START + STR_FIXED_COUNT)
+  STR_FIXED = (STR_FIXED_START...STR_FIXED_START + STR_FIXED_COUNT).freeze
 
   # Lists with length embedded in typecode.
-  LIST_FIXED_START = STR_FIXED_START+STR_FIXED_COUNT
+  LIST_FIXED_START = STR_FIXED_START + STR_FIXED_COUNT
   LIST_FIXED_COUNT = 64
-  LIST_FIXED = (LIST_FIXED_START...LIST_FIXED_START + LIST_FIXED_COUNT)
+  LIST_FIXED = (LIST_FIXED_START...LIST_FIXED_START + LIST_FIXED_COUNT).freeze
 
   require_relative 'rencoder/encoder'
   require_relative 'rencoder/decoder'

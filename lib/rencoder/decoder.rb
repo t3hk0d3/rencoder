@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 module Rencoder
+  # Rencode format decoder module
   module Decoder
     INTEGER_DECODING_MAP = {
       CHR_INT1 => [1, 'c'],
       CHR_INT2 => [2, 's>'],
       CHR_INT4 => [4, 'l>'],
       CHR_INT8 => [8, 'q>']
-    }
+    }.freeze
 
     def decode(buffer)
       buffer = StringIO.new(buffer) unless buffer.respond_to?(:read) # IO object
@@ -43,11 +46,11 @@ module Rencoder
       when CHR_INT1, CHR_INT2, CHR_INT4, CHR_INT8
         size, template = INTEGER_DECODING_MAP[type]
 
-        buffer.read(size).unpack(template).first
+        buffer.read(size).unpack1(template)
       when INT_POS_FIXED
         type - INT_POS_FIXED_START
       when INT_NEG_FIXED
-        -1-(type - INT_NEG_FIXED_START)
+        -1 - (type - INT_NEG_FIXED_START)
       end
     end
 
@@ -71,7 +74,7 @@ module Rencoder
       end
     end
 
-    def decode_boolean(buffer, type)
+    def decode_boolean(_buffer, type)
       type == CHR_TRUE
     end
 
@@ -88,7 +91,7 @@ module Rencoder
       when LIST_FIXED
         size = type - LIST_FIXED_START
 
-        size.times.map do |i|
+        size.times.map do |_i|
           decode(buffer)
         end
       end
@@ -111,7 +114,7 @@ module Rencoder
       end
     end
 
-    def decode_nil(buffer, type)
+    def decode_nil(_buffer, _type)
       nil
     end
 

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Rencoder
+  # Rencode format encoder module
   module Encoder
     class EncodingError < StandardError; end
 
@@ -16,26 +19,24 @@ module Rencoder
       end
     end
 
-    def encode_integer(object)
+    def encode_integer(object) # rubocop:disable Metrics/AbcSize
       case object
       when (0...INT_POS_FIXED_COUNT) # predefined positive intger
         [INT_POS_FIXED_START + object].pack('C')
       when (-INT_NEG_FIXED_COUNT...0) # predefined negative integer
-        [INT_NEG_FIXED_START-1-object].pack('C')
+        [INT_NEG_FIXED_START - 1 - object].pack('C')
       when (-128...128)
         [CHR_INT1, object].pack('Cc') # 8-bit signed
-      when (-32768...32768)
+      when (-32_768...32_768)
         [CHR_INT2, object].pack('Cs>') # 16-bit signed
-      when (-2147483648...2147483648)
+      when (-2_147_483_648...2_147_483_648)
         [CHR_INT4, object].pack('Cl>') # 32-bit signed
-      when (-9223372036854775808...9223372036854775808)
+      when (-9_223_372_036_854_775_808...9_223_372_036_854_775_808)
         [CHR_INT8, object].pack('Cq>') # 64-bit signed
       else # encode as ASCII
         bytes = object.to_s.bytes
 
-        if bytes.size >= MAX_INT_LENGTH
-          raise EncodingError, "Unable to serialize Integer #{object} due to overflow"
-        end
+        raise EncodingError, "Unable to serialize Integer #{object} due to overflow" if bytes.size >= MAX_INT_LENGTH
 
         [CHR_INT, *bytes, CHR_TERM].pack('C*')
       end
@@ -61,7 +62,7 @@ module Rencoder
       if bytes.size < STR_FIXED_COUNT
         (STR_FIXED_START + bytes.size).chr + bytes
       else
-        "#{bytes.bytesize.to_s}:#{bytes}"
+        "#{bytes.bytesize}:#{bytes}"
       end
     end
 
@@ -89,7 +90,7 @@ module Rencoder
       end
     end
 
-    def encode_nil(object)
+    def encode_nil(_object)
       [CHR_NONE].pack('C')
     end
   end

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Rencoder
+  # Rencode format encoder/decoder class
   class Coder
     attr_reader :options
 

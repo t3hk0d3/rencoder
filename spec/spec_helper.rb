@@ -1,12 +1,13 @@
-$:.unshift(File.expand_path('../../lib', __FILE__))
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 
 require 'rspec'
 require 'rencoder'
 
 require 'base64'
 
-shared_context 'serialization_values' do
-
+shared_context 'with serialization_values' do # rubocop:disable RSpec/MultipleMemoizedHelpers
   # Values encoded using original Python code
 
   # Integers
@@ -45,10 +46,10 @@ shared_context 'serialization_values' do
   let(:serialized_empty_string) { Base64.decode64("gA==\n") }
 
   # maximum embedded-length string type ('a' * 63)
-  let(:serialized_63byte_string) { "\xBF" + 'a' * 63 }
+  let(:serialized_63byte_string) { "\xBF#{'a' * 63}" }
 
   # 'a' * 100
-  let(:serialized_long_string) { '100:' + 'a' * 100 }
+  let(:serialized_long_string) { "100:#{'a' * 100}" }
 
   # Booleans
   # true
@@ -75,12 +76,12 @@ shared_context 'serialization_values' do
 
   # maximum embedded-length array type (63.times.to_a)
   let(:serialized_63_element_array) do
-    Base64.decode64("/z4APgE+Aj4DPgQ+BT4GPgc+CD4JPgo+Cz4MPg0+Dj4PPhA+ET4SPhM+FD4V\nPhY+Fz4YPhk+Gj4bPhw+HT4ePh8+ID4hPiI+Iz4kPiU+Jj4nPig+KT4qPis+\nLD4tPi4+Lz4wPjE+Mj4zPjQ+NT42Pjc+OD45Pjo+Oz48Pj0+Pg==\n")
+    Base64.decode64("/z4APgE+Aj4DPgQ+BT4GPgc+CD4JPgo+Cz4MPg0+Dj4PPhA+ET4SPhM+FD4V\nPhY+Fz4YPhk+Gj4bPhw+HT4ePh8+ID4hPiI+Iz4kPiU+Jj4nPig+KT4qPis+\nLD4tPi4+Lz4wPjE+Mj4zPjQ+NT42Pjc+OD45Pjo+Oz48Pj0+Pg==\n") # rubocop:disable Layout/LineLength
   end
 
   # big array (100.times.to_a)
   let(:serialized_big_array) do
-    Base64.decode64('OwABAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorPiw+LT4uPi8+MD4xPjI+Mz40PjU+Nj43Pjg+OT46Pjs+PD49Pj4+Pz5APkE+Qj5DPkQ+RT5GPkc+SD5JPko+Sz5MPk0+Tj5PPlA+UT5SPlM+VD5VPlY+Vz5YPlk+Wj5bPlw+XT5ePl8+YD5hPmI+Y38=')
+    Base64.decode64('OwABAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorPiw+LT4uPi8+MD4xPjI+Mz40PjU+Nj43Pjg+OT46Pjs+PD49Pj4+Pz5APkE+Qj5DPkQ+RT5GPkc+SD5JPko+Sz5MPk0+Tj5PPlA+UT5SPlM+VD5VPlY+Vz5YPlk+Wj5bPlw+XT5ePl8+YD5hPmI+Y38=') # rubocop:disable Layout/LineLength
   end
 
   # Hash
@@ -89,6 +90,6 @@ shared_context 'serialization_values' do
 
   # big hash (Hash[100.times.map { |i| [i, i.chr] }])
   let(:serialized_big_hash) do
-    Base64.decode64('PACBAAGBAQKBAgOBAwSBBAWBBQaBBgeBBwiBCAmBCQqBCguBCwyBDA2BDQ6BDg+BDxCBEBGBERKBEhOBExSBFBWBFRaBFheBFxiBGBmBGRqBGhuBGxyBHB2BHR6BHh+BHyCBICGBISKBIiOBIySBJCWBJSaBJieBJyiBKCmBKSqBKiuBKz4sgSw+LYEtPi6BLj4vgS8+MIEwPjGBMT4ygTI+M4EzPjSBND41gTU+NoE2PjeBNz44gTg+OYE5PjqBOj47gTs+PIE8Pj2BPT4+gT4+P4E/PkCBQD5BgUE+QoFCPkOBQz5EgUQ+RYFFPkaBRj5HgUc+SIFIPkmBST5KgUo+S4FLPkyBTD5NgU0+ToFOPk+BTz5QgVA+UYFRPlKBUj5TgVM+VIFUPlWBVT5WgVY+V4FXPliBWD5ZgVk+WoFaPluBWz5cgVw+XYFdPl6BXj5fgV8+YIFgPmGBYT5igWI+Y4Fjfw==')
+    Base64.decode64('PACBAAGBAQKBAgOBAwSBBAWBBQaBBgeBBwiBCAmBCQqBCguBCwyBDA2BDQ6BDg+BDxCBEBGBERKBEhOBExSBFBWBFRaBFheBFxiBGBmBGRqBGhuBGxyBHB2BHR6BHh+BHyCBICGBISKBIiOBIySBJCWBJSaBJieBJyiBKCmBKSqBKiuBKz4sgSw+LYEtPi6BLj4vgS8+MIEwPjGBMT4ygTI+M4EzPjSBND41gTU+NoE2PjeBNz44gTg+OYE5PjqBOj47gTs+PIE8Pj2BPT4+gT4+P4E/PkCBQD5BgUE+QoFCPkOBQz5EgUQ+RYFFPkaBRj5HgUc+SIFIPkmBST5KgUo+S4FLPkyBTD5NgU0+ToFOPk+BTz5QgVA+UYFRPlKBUj5TgVM+VIFUPlWBVT5WgVY+V4FXPliBWD5ZgVk+WoFaPluBWz5cgVw+XYFdPl6BXj5fgV8+YIFgPmGBYT5igWI+Y4Fjfw==') # rubocop:disable Layout/LineLength
   end
 end
