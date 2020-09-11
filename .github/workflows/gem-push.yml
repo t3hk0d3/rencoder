@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - v0.*
+  release:
+    types: [published]
 jobs:
   build:
     name: Build + Publish
